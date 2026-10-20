@@ -43,13 +43,13 @@ func main() {
 		return
 	}
 
-	binPath, err := exec.LookPath(cmdName)
+	binPath, err := findAgentBin(cmdName)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "find %s binary: %v\n", cmdName, err)
 		os.Exit(1)
 	}
 
-	if err := syscall.Exec(binPath, []string{cmdName, "--conversation", m.selectedID}, os.Environ()); err != nil {
+	if err := syscall.Exec(binPath, []string{binPath, "--conversation", m.selectedID}, os.Environ()); err != nil {
 		fmt.Fprintf(os.Stderr, "exec %s: %v\n", cmdName, err)
 		os.Exit(1)
 	}
@@ -64,9 +64,25 @@ func detectAgentDir(home string) (cmdName, appDataDir string) {
 	return "agy", filepath.Join(home, ".gemini", "antigravity-cli")
 }
 
+// shortcut: only checks standard gLinux/gMac jetski paths, parse shell rc if custom alias paths are needed
+func findAgentBin(cmdName string) (string, error) {
+	if cmdName == "jetski" {
+		for _, p := range []string{"/google/bin/releases/jetski-devs/tools/cli", "/usr/local/bin/jetski"} {
+			if bin, err := exec.LookPath(p); err == nil {
+				return bin, nil
+			}
+		}
+	}
+	return exec.LookPath(cmdName)
+}
+
 // fetchAgentVersion runs <cmdName> --version and formats the version string.
 func fetchAgentVersion(cmdName string) string {
-	out, err := exec.Command(cmdName, "--version").Output()
+	binPath, err := findAgentBin(cmdName)
+	if err != nil {
+		return cmdName
+	}
+	out, err := exec.Command(binPath, "--version").Output()
 	if err != nil {
 		return cmdName
 	}
