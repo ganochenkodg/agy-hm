@@ -71,7 +71,7 @@
 
 ### Option 1: Download Prebuilt Binary
 
-Download the binary for your platform from the [Releases](https://github.com/ganochenkodg/agy-hm/releases) page (or the `dist/` directory) and move it into your `$PATH`:
+Download the binary for your platform from the [Releases](https://github.com/ganochenkodg/agy-hm/releases) page and move it into your `$PATH`:
 
 ```bash
 # Example for macOS (Apple Silicon)
