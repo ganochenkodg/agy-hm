@@ -36,7 +36,7 @@
 </p>
 
 <p align="center">
-  <img src="resources/record.gif" width="750" alt="agy-hm Screen Recording"/>
+  <img src="resources/record.gif" width="720" alt="agy-hm Screen Recording"/>
 </p>
 
 ### Keyboard Shortcuts
