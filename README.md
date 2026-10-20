@@ -36,7 +36,7 @@
 </p>
 
 <p align="center">
-  <a href="resources/record.mov">▶️ Watch the screen recording (<code>resources/record.mov</code>)</a>
+  <img src="resources/record.gif" width="800" alt="agy-hm Screen Recording"/>
 </p>
 
 ### Keyboard Shortcuts
